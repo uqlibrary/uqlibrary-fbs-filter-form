@@ -1,7 +1,7 @@
 @import "../uqlibrary-elements/resources/theme/element";
 
 $timepickerRatio: 0.9;
-$mainColor: $accent-A400;
+$mainColor: $teal-500;
 $inputColor: $secondary-text;
 $textColor: $secondary-text;
 
@@ -135,7 +135,7 @@ paper-slider {
 
 .sliderWrapper {
   color: $textColor;
-  margin-top: 10pt;
+  margin-top: 20pt;
 }
 
 paper-checkbox {
@@ -162,8 +162,8 @@ paper-checkbox {
   padding: 10pt 20pt 40pt 20pt;
   position: relative;
   paper-fab#applyButton {
-    background-color: green;
-    color: #FFF;
+    background-color: $green;
+    color: $white;
   }
 }
 

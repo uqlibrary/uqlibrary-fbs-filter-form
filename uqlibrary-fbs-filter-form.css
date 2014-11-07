@@ -63,7 +63,7 @@ md-timepicker::shadow #card {
   height: 360px;
   width: 225px; }
 md-timepicker::shadow #display {
-  background-color: #00bfa5 !important;
+  background-color: #009688 !important;
   height: 108px;
   padding: 21.6px;
   color: white;
@@ -78,21 +78,21 @@ md-timepicker::shadow #keypad {
     flex-basis: 56.7px; }
 
 paper-slider::shadow #sliderBar::shadow #activeProgress {
-  background-color: #00bfa5; }
+  background-color: #009688; }
 paper-slider::shadow #sliderKnobInner {
-  background-color: #00bfa5; }
+  background-color: #009688; }
   paper-slider::shadow #sliderKnobInner::before {
-    background-color: #00bfa5;
+    background-color: #009688;
     display: block !important; }
 paper-slider#timePeriod {
   width: 50%; }
 
 .sliderWrapper {
   color: rgba(0, 0, 0, 0.54);
-  margin-top: 10pt; }
+  margin-top: 20pt; }
 
 paper-checkbox::shadow #checkbox.checked {
-  border-color: #00bfa5; }
+  border-color: #009688; }
 
 .equipment-item {
   margin-bottom: 10pt;
@@ -104,8 +104,8 @@ paper-checkbox::shadow #checkbox.checked {
   padding: 10pt 20pt 40pt 20pt;
   position: relative; }
   .buttonWrapper paper-fab#applyButton {
-    background-color: green;
-    color: #FFF; }
+    background-color: #4caf50;
+    color: white; }
 
 paper-toast#infoToast {
   position: absolute; }
