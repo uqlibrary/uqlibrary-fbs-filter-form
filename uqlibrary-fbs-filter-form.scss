@@ -1,0 +1,175 @@
+@import "../uqlibrary-elements/resources/theme/element";
+
+$timepickerRatio: 0.9;
+$mainColor: $accent-A400;
+$inputColor: $secondary-text;
+$textColor: $secondary-text;
+
+:host {
+  font-size: 10pt;
+
+}
+
+.filterWrapper {
+  background-color: $white;
+  max-width: 300pt;
+}
+
+uqlibrary-filter-group {
+  padding-right: 20pt;
+  max-width: 300pt;
+}
+
+paper-input {
+  &::shadow {
+    input {
+      color: $inputColor;
+    }
+  }
+  &#time{
+    display: block;
+    width: 100%;
+  }
+
+}
+
+paper-dropdown-menu {
+  display: block;
+  &::shadow {
+    #control {
+      color: $inputColor;
+    }
+
+    core-dropdown{
+      display: block;
+      background-color: $dropdown-background;
+      color: $textColor;
+    }
+  }
+
+  paper-item {
+    padding: 0px;
+
+    &:hover {
+      background-color: $dropdown-background-hover;
+    }
+
+    &::shadow #label{
+      font-size: 10pt;
+
+    }
+
+  }
+}
+
+md-timepicker {
+  &::shadow {
+    #card {
+      position: absolute;
+      margin-top: 0pt;
+      z-index: 999;
+
+      height: 400px * $timepickerRatio;
+      width: 250px * $timepickerRatio;
+    }
+    #display {
+      background-color: $mainColor !important;
+      height: 120px * $timepickerRatio;
+      padding: 24px * $timepickerRatio;
+      color: white;
+      font-size: 46px * $timepickerRatio;
+      .digit{
+        opacity: 0.7;
+        &[active] {
+          opacity: 1;
+        }
+      }
+    }
+    #keypad {
+      font-size: 42px * $timepickerRatio;
+
+      .digit {
+        flex-basis: 63px * $timepickerRatio;
+      }
+
+    }
+
+
+
+  }
+}
+
+paper-slider {
+
+  &::shadow {
+    #sliderBar {
+      &::shadow {
+        #activeProgress {
+          background-color: $mainColor;
+        }
+      }
+    }
+
+    #sliderKnobInner {
+      background-color: $mainColor;
+
+      &::before {
+        background-color: $mainColor;
+        display: block !important;
+      }
+
+      &::after {
+      }
+
+    }
+
+  }
+  &#timePeriod {
+    width: 50%;
+  }
+
+  &#capacity {
+
+  }
+}
+
+.sliderWrapper {
+  color: $textColor;
+  margin-top: 10pt;
+}
+
+paper-checkbox {
+  &::shadow {
+    #checkbox {
+      &.checked {
+        border-color: $mainColor;
+      }
+    }
+  }
+}
+
+
+.equipment-item {
+  margin-bottom: 10pt;
+  color: $textColor;
+  core-icon {
+    margin-right: 10pt;
+  }
+
+}
+
+.buttonWrapper {
+  padding: 10pt 20pt 40pt 20pt;
+  position: relative;
+  paper-fab#applyButton {
+    background-color: green;
+    color: #FFF;
+  }
+}
+
+paper-toast {
+  &#infoToast {
+    position: absolute;
+  }
+}
+

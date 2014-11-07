@@ -1,0 +1,328 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../core-icons/core-icons.html">
+<link rel="import" href="../core-icons/social-icons.html">
+<link rel="import" href="../core-icons/device-icons.html">
+<link rel="import" href="../core-icons/communication-icons.html">
+<link rel="import" href="../core-icons/hardware-icons.html">
+<link rel="import" href="../core-icons/av-icons.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../md-timepicker/md-timepicker.html">
+<link rel="import" href="../paper-slider/paper-slider.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../core-tooltip/core-tooltip.html">
+<link rel="import" href="uqlibrary-filter-group.html">
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <uqlibrary-fbs-filter-form></uqlibrary-fbs-filter-form>
+
+@element uqlibrary-fbs-filter-form
+@blurb Element providing form for filtering rooms.
+@status alpha
+@homepage https://github.com/uqlibrary/uqlibrary-fbs-filter-form
+-->
+<polymer-element name="uqlibrary-fbs-filter-form" attributes="formData selectedValues">
+
+  <template>
+
+    <link rel="stylesheet" href="uqlibrary-fbs-filter-form.css" />
+      <div class="filterWrapper">
+        <uqlibrary-filter-group  label="Campus" icon="communication:location-on">
+          <paper-dropdown-menu id="campusSelect" label="Campus" selected="{{selectedCampus}}">
+            <template repeat="{{campuses as item}}">
+              <paper-item name="{{item.id}}" label="{{item.title}}">
+              </paper-item>
+            </template>
+          </paper-dropdown-menu>
+
+          <paper-dropdown-menu id="buildingSelect" label="Building" selected="{{selectedBuilding}}"  hidden?="{{!buildings.length}}">
+            <template repeat="{{building in buildings}}">
+              <paper-item name="{{building.id}}" label="{{building.title}}">
+              </paper-item>
+            </template>
+          </paper-dropdown-menu>
+
+
+          <paper-dropdown-menu id="roomSelect" label="Room" selected="{{selectedRoom}}"  hidden?="{{!rooms.length}}">
+            <template repeat="{{rooms as room}}">
+              <paper-item name="{{room.id}}" label="{{room.title}}">
+              </paper-item>
+            </template>
+            </paper-dropdown-menu>
+        </uqlibrary-filter-group>
+
+        <uqlibrary-filter-group label="Time" icon="device:access-time">
+        <paper-dropdown-menu id="dateSelect" label="Date" selected="{{selectedDate}}">
+          <template repeat="{{dates as date}}">
+            <paper-item name="{{date.value}}" label="{{date.text}}">
+            </paper-item>
+          </template>
+        </paper-dropdown-menu>
+
+        <paper-input floatingLabel id="time" on-focus="{{showTimepicker}}" value="{{selectedTime}}" label="Now"></paper-input>
+        <md-timepicker id="timepicker" on-time-selected="{{timeSelectedHandler}}" hidden></md-timepicker>
+
+        <div class="sliderWrapper" layout horizontal justified center>
+          <div>Duration</div>
+          <paper-slider flex id="timePeriod" pin step="0.5" min="0.5" max="4" value="{{selectedDuration}}"></paper-slider>
+          <div end-justified>{{selectedDuration}} hour(s)</div>
+        </div>
+      </uqlibrary-filter-group>
+
+
+        <uqlibrary-filter-group label="Capacity" icon="social:people">
+          <div class="sliderWrapper" layout horizontal justified center>
+            <div>Number of people</div>
+            <paper-slider flex  editable pin step="1" min="1" max="25" value="{{selectedCapacity}}"></paper-slider>
+          </div>
+        </uqlibrary-filter-group>
+
+        <uqlibrary-filter-group label="Equipment" icon="settings">
+          <div class="equipment-item" layout horizontal>
+            <div flex>
+              <core-icon icon="hardware:desktop-windows"></core-icon>
+              <label>PC</label>
+            </div>
+            <paper-checkbox id="equipment.pc" checked="{{selectedEquipment.pc}}"></paper-checkbox>
+          </div>
+
+          <div class="equipment-item" layout horizontal>
+            <div flex>
+              <core-icon icon="av:videocam"></core-icon>
+              <label>Projector</label>
+            </div>
+            <paper-checkbox id="equipment.pc" checked="{{selectedEquipment.projector}}"></paper-checkbox>
+          </div>
+        </uqlibrary-filter-group>
+
+        <div class="buttonWrapper" horizontal layout>
+          <div flex><paper-toast id="infoToast"></paper-toast></div>
+          <paper-fab id="applyButton" end-justified  icon="done" on-click="{{submitForm}}" label="Apply" ></paper-fab>
+        </div>
+
+      </div>
+
+    <content></content>
+
+  </template>
+
+  <script>
+
+
+    Polymer('uqlibrary-fbs-filter-form', {
+
+
+      observe: {
+        'formData.facilities': 'facilitiesChanged',
+        'formData.dates': 'initialDatesChanged',
+        'selectedValues': 'selectedValuesChanged',
+      },
+
+      created: function() {
+        this.selectedValues = {};
+      },
+
+
+
+      campuses: [],
+      buildings:[],
+      rooms:[],
+      dates:[],
+      formData: {},
+
+      selectedCampus: '',
+      selectedBuilding: '',
+      selectedRoom: '',
+      selectedDate: '',
+      selectedTime: '',
+      selectedEquipment: {},
+      ololo: '',
+
+
+      refreshList: '',
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+
+      ready: function() {
+      },
+
+
+      submitForm: function() {
+        this.getSelectedValues();
+        if(this.selectedValues.equipment.pc && this.selectedValues.equipment.projector) {
+          this.$.infoToast.text="No rooms found for selected filter";
+          this.$.infoToast.show();
+          return false;
+        }
+        else{
+          console.log('submit form');
+        }
+      },
+
+
+      facilitiesChanged: function(oldValue, newValue) {
+        this.campuses = [];
+        this.buildings = [];
+        this.rooms = [];
+
+        this.loadCampuses();
+        this.loadBuildings();
+        this.loadRooms();
+
+      },
+
+      initialDatesChanged: function(oldValue, newValue) {
+        this.dates = [];
+        for (var i = 0; i < this.formData.dates.length; i++) {
+          var _date = this.formData.dates[i];
+
+          _date.date = new Date(_date.date);
+          _date.day = _date.date.getDate();
+          _date.value = _date.day+'/'+(_date.date.getMonth() + 1)+'/'+_date.date.getFullYear();
+          _date.text = ( _date.day == new Date().getDate() ? 'Today' :  this.dayNames[_date.date.getDay()] + ', ' + this.months[_date.date.getMonth()] + ' ' + _date.day);
+
+          this.dates.push(_date);
+        }
+        this.selectedDate = this.dates[0].value;
+
+      },
+
+      loadCampuses: function() {
+        this.campuses = [];
+        for(var i = 0; i < this.formData.facilities.length; i++) {
+          var _campus = this.formData.facilities[i];
+          this.campuses.push(
+            { id: _campus.id,
+              title: _campus.title
+            }
+          );
+        }
+      },
+
+      loadBuildings: function() {
+        this.buildings = [];
+        for(var i = 0; i < this.formData.facilities.length; i++) {
+          var _campus = this.formData.facilities[i];
+          if(this.selectedCampus && this.selectedCampus == _campus.id ){
+            for(var j = 0; j < _campus.buildings.length; j++) {
+              var _building = _campus.buildings[j];
+              this.buildings.push(
+                { id: _campus.id + ":" + _building.id,
+                  title: _building.title
+                }
+              );
+            }
+          }
+        }
+      },
+
+      loadRooms: function() {
+        this.rooms = [];
+        for(var i = 0; i < this.formData.facilities.length; i++) {
+          var _campus = this.formData.facilities[i];
+          if(this.selectedCampus && this.selectedCampus == _campus.id ){
+            for(var j = 0; j < _campus.buildings.length; j++) {
+              var _building = _campus.buildings[j];
+              if(this.selectedBuilding && this.selectedBuilding == (_campus.id + ":" + _building.id) ) {
+                for(var k = 0; k < _building.rooms.length; k++) {
+                  var _room = _building.rooms[k];
+                  this.rooms.push(
+                    { id: _campus.id + ":" + _building.id + ":" + _room.id,
+                      title: _room.title
+                    }
+                  );
+                }
+              }
+            }
+          }
+        }
+      },
+
+
+      selectedCampusChanged: function(oldValue, newValue) {
+        if(oldValue != '') {
+          this.selectedBuilding = '';
+        }
+
+        //this.selectedValues.campus = newValue;
+        this.loadBuildings();
+      },
+
+      selectedBuildingChanged: function(oldValue, newValue) {
+        // If user selects a value. Not acceptable to initial form state
+        if(oldValue != '') {
+          this.selectedRoom = null;
+        }
+        //this.selectedValues.building = newValue;
+        this.loadRooms();
+      },
+
+      selectedRoomChanged: function(oldValue, newValue) {
+        //this.selectedValues.room = newValue;
+        if(newValue.indexOf(':ir') !== -1)
+          this.selectedCapacity = 1;
+        else {
+          this.selectedCapacity = 5;
+        }
+
+      },
+
+      selectedDateChanged: function(oldValue, newValue) {
+        //this.selectedValues.date = newValue;
+      },
+
+      selectedValuesChanged: function(oldValue, newValue) {
+        this.selectedCampus = this.selectedValues.campus;
+        this.selectedBuilding = this.selectedValues.building;
+        this.selectedRoom = this.selectedValues.room;
+        this.selectedDate = this.selectedValues.date;
+        this.selectedTime = this.selectedValues.time;
+        this.selectedDuration = this.selectedValues.duration;
+        this.selectedCapacity = this.selectedValues.capacity;
+        this.selectedEquipment = this.selectedValues.equipment;
+      },
+
+      getSelectedValues: function() {
+        this.selectedValues.campus = this.selectedCampus;
+        this.selectedValues.building = this.selectedBuilding;
+        this.selectedValues.room = this.selectedRoom;
+        this.selectedValues.date = this.selectedDate;
+        this.selectedValues.time = this.selectedTime;
+        this.selectedValues.duration = this.selectedDuration;
+        this.selectedValues.capacity = this.selectedCapacity;
+        this.selectedValues.equipment = this.selectedEquipment;
+
+      },
+
+      timeSelectedHandler: function(e, value) {
+        this.selectedTime = value.time;
+        this.$.time.label = 'From';
+        this.hideTimepicker();
+      },
+
+      showTimepicker: function() {
+        if(this.selectedTime) {
+          this.$.timepicker.hours = this.selectedTime.substring(0,this.selectedTime.indexOf(":"));
+          this.$.timepicker.minutes = this.selectedTime.substring(this.selectedTime.indexOf(":")+1);
+        }
+        this.$.timepicker.selectHours();
+        this.$.timepicker.hidden = false;
+
+      },
+      hideTimepicker: function() {
+        this.$.timepicker.hidden = true;
+      },
+    });
+
+  </script>
+
+</polymer-element>
+

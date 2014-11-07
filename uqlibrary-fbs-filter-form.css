@@ -1,0 +1,111 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 200;
+  src: url("Roboto-Light.woff") format("woff"); }
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url("Roboto-Regular.woff") format("woff"); }
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url("Roboto-Medium.woff") format("woff"); }
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url("Roboto-Bold.woff") format("woff"); }
+:host,
+:host *,
+::content * {
+  box-sizing: border-box;
+  outline: none; }
+
+:host {
+  font-size: 10pt; }
+
+.filterWrapper {
+  background-color: white;
+  max-width: 300pt; }
+
+uqlibrary-filter-group {
+  padding-right: 20pt;
+  max-width: 300pt; }
+
+paper-input::shadow input {
+  color: rgba(0, 0, 0, 0.54); }
+paper-input#time {
+  display: block;
+  width: 100%; }
+
+paper-dropdown-menu {
+  display: block; }
+  paper-dropdown-menu::shadow #control {
+    color: rgba(0, 0, 0, 0.54); }
+  paper-dropdown-menu::shadow core-dropdown {
+    display: block;
+    background-color: #eeeeee;
+    color: rgba(0, 0, 0, 0.54); }
+  paper-dropdown-menu paper-item {
+    padding: 0px; }
+    paper-dropdown-menu paper-item:hover {
+      background-color: #bdbdbd; }
+    paper-dropdown-menu paper-item::shadow #label {
+      font-size: 10pt; }
+
+md-timepicker::shadow #card {
+  position: absolute;
+  margin-top: 0pt;
+  z-index: 999;
+  height: 360px;
+  width: 225px; }
+md-timepicker::shadow #display {
+  background-color: #00bfa5 !important;
+  height: 108px;
+  padding: 21.6px;
+  color: white;
+  font-size: 41.4px; }
+  md-timepicker::shadow #display .digit {
+    opacity: 0.7; }
+    md-timepicker::shadow #display .digit[active] {
+      opacity: 1; }
+md-timepicker::shadow #keypad {
+  font-size: 37.8px; }
+  md-timepicker::shadow #keypad .digit {
+    flex-basis: 56.7px; }
+
+paper-slider::shadow #sliderBar::shadow #activeProgress {
+  background-color: #00bfa5; }
+paper-slider::shadow #sliderKnobInner {
+  background-color: #00bfa5; }
+  paper-slider::shadow #sliderKnobInner::before {
+    background-color: #00bfa5;
+    display: block !important; }
+paper-slider#timePeriod {
+  width: 50%; }
+
+.sliderWrapper {
+  color: rgba(0, 0, 0, 0.54);
+  margin-top: 10pt; }
+
+paper-checkbox::shadow #checkbox.checked {
+  border-color: #00bfa5; }
+
+.equipment-item {
+  margin-bottom: 10pt;
+  color: rgba(0, 0, 0, 0.54); }
+  .equipment-item core-icon {
+    margin-right: 10pt; }
+
+.buttonWrapper {
+  padding: 10pt 20pt 40pt 20pt;
+  position: relative; }
+  .buttonWrapper paper-fab#applyButton {
+    background-color: green;
+    color: #FFF; }
+
+paper-toast#infoToast {
+  position: absolute; }
