@@ -33,40 +33,6 @@ paper-input {
 
 }
 
-paper-dropdown-menu {
-  display: block;
-  &::shadow {
-    #control {
-      color: $inputColor;
-    }
-    core-dropdown{
-      display: block;
-      background-color: $dropdown-background;
-      color: $textColor;
-    }
-  }
-  &.error::shadow {
-    #control {
-      color: $error-color;
-      border-color: $error-color;
-    }
-  }
-
-  paper-item {
-    padding: 0px;
-
-    &:hover {
-      background-color: $dropdown-background-hover;
-    }
-
-    &::shadow #label{
-      font-size: 10pt;
-
-    }
-
-  }
-}
-
 md-timepicker {
   &::shadow {
     #card {

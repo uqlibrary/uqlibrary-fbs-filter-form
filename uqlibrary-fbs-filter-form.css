@@ -28,7 +28,7 @@
   font-size: 10pt; }
 
 .filterWrapper {
-  background-color: white;
+  background-color: #ffffff;
   max-width: 300pt; }
 
 uqlibrary-filter-group {
@@ -40,24 +40,6 @@ paper-input::shadow input {
 paper-input#time {
   display: block;
   width: 100%; }
-
-paper-dropdown-menu {
-  display: block; }
-  paper-dropdown-menu::shadow #control {
-    color: rgba(0, 0, 0, 0.54); }
-  paper-dropdown-menu::shadow core-dropdown {
-    display: block;
-    background-color: #eeeeee;
-    color: rgba(0, 0, 0, 0.54); }
-  paper-dropdown-menu.error::shadow #control {
-    color: #f44336;
-    border-color: #f44336; }
-  paper-dropdown-menu paper-item {
-    padding: 0px; }
-    paper-dropdown-menu paper-item:hover {
-      background-color: #bdbdbd; }
-    paper-dropdown-menu paper-item::shadow #label {
-      font-size: 10pt; }
 
 md-timepicker::shadow #card {
   position: absolute;
@@ -107,11 +89,13 @@ paper-checkbox::shadow #checkbox.checked {
   padding: 10pt 20pt 40pt 20pt;
   position: relative; }
   .buttonWrapper paper-fab#applyButton {
-    background-color: #4caf50;
-    color: white; }
+    background-color: #4CAF50;
+    color: #ffffff; }
 
 paper-toast#infoToast {
   position: absolute; }
 
 .error {
-  color: #f44336; }
+  color: #F44336; }
+
+/*# sourceMappingURL=uqlibrary-fbs-filter-form.css.map */
