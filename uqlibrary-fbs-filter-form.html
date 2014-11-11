@@ -40,29 +40,29 @@ Element providing solution to no problem in particular.
       <div class="filterWrapper">
         <uqlibrary-filter-group  label="Campus" icon="communication:location-on">
 
-          <paper-dropdown-menu id="campusSelect" label="Campus" class="{{errors.campus ? 'error' : ''}}" selected="{{selectedCampus}}">
+          <paper-dropdown-menu id="campusSelect" label="Campus" class="{{errors.campus ? 'error' : ''}}">
             <paper-dropdown class="dropdown">
-              <core-menu class="menu">
+              <core-menu class="menu" selected="{{selectedCampus}}">
                 <template repeat="{{campuses as item}}">
                   <paper-item name="{{item.id}}" label="{{item.title}}"></paper-item>
                 </template>
               </core-menu>
             </paper-dropdown>
-          </paper-dropdown-menu>
+          </paper-dropdown-menu><br>
 
-          <paper-dropdown-menu id="buildingSelect" label="Building" selected="{{selectedBuilding}}"  hidden?="{{!buildings.length}}">
+          <paper-dropdown-menu id="buildingSelect" label="Building" hidden?="{{!buildings.length}}">
             <paper-dropdown class="dropdown">
-              <core-menu class="menu">
+              <core-menu class="menu" selected="{{selectedBuilding}}">
                 <template repeat="{{building in buildings}}">
                   <paper-item name="{{building.id}}" label="{{building.title}}"></paper-item>
                 </template>
               </core-menu>
             </paper-dropdown>
-          </paper-dropdown-menu>
+          </paper-dropdown-menu><br>
 
-          <paper-dropdown-menu id="roomSelect" label="Room" selected="{{selectedRoom}}"  hidden?="{{!rooms.length}}">
+          <paper-dropdown-menu id="roomSelect" label="Room" hidden?="{{!rooms.length}}">
             <paper-dropdown class="dropdown">
-              <core-menu class="menu">
+              <core-menu class="menu" selected="{{selectedRoom}}">
                 <template repeat="{{rooms as room}}">
                   <paper-item name="{{room.id}}" label="{{room.title}}">
                   </paper-item>
