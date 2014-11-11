@@ -36,7 +36,7 @@ Element providing solution to no problem in particular.
     <link rel="stylesheet" href="uqlibrary-fbs-filter-form.css" />
       <div class="filterWrapper">
         <uqlibrary-filter-group  label="Campus" icon="communication:location-on">
-          <paper-dropdown-menu id="campusSelect" label="Campus" selected="{{selectedCampus}}">
+          <paper-dropdown-menu id="campusSelect" label="Campus" class="{{errors.campus ? 'error' : ''}}" selected="{{selectedCampus}}">
             <template repeat="{{campuses as item}}">
               <paper-item name="{{item.id}}" label="{{item.title}}">
               </paper-item>
@@ -81,7 +81,7 @@ Element providing solution to no problem in particular.
         <uqlibrary-filter-group label="Capacity" icon="social:people">
           <div class="sliderWrapper" layout horizontal justified center>
             <div>Number of people</div>
-            <paper-slider flex  editable pin step="1" min="1" max="25" value="{{selectedCapacity}}"></paper-slider>
+            <paper-slider flex editable pin step="1" min="1" max="25" value="{{selectedCapacity}}"></paper-slider>
           </div>
         </uqlibrary-filter-group>
 
@@ -144,29 +144,29 @@ Element providing solution to no problem in particular.
       selectedDate: '',
       selectedTime: '',
       selectedEquipment: {},
-      ololo: '',
 
+      errors: {},
 
       refreshList: '',
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 
       ready: function() {
+
       },
 
 
       submitForm: function() {
         this.getSelectedValues();
-        if(this.selectedValues.equipment.pc && this.selectedValues.equipment.projector) {
-          this.$.infoToast.text="No rooms found for selected filter";
-          this.$.infoToast.show();
-          return false;
-        }
-        else{
-          console.log('submit form');
+        if(this.validateForm()) {
+          this.fire('filter-form-submitted', {formData: this.selectedValues});
         }
       },
 
+      showInfoToast: function(text) {
+        this.$.infoToast.text = text;
+        this.$.infoToast.show();
+      },
 
       facilitiesChanged: function(oldValue, newValue) {
         this.campuses = [];
@@ -178,6 +178,18 @@ Element providing solution to no problem in particular.
         this.loadRooms();
 
       },
+
+      validateForm: function() {
+        this.errors = {};
+        var isValid = true;
+        if(!this.selectedCampus) {
+          this.errors['campus'] = 'Select campus';
+          isValid = false;
+        }
+        console.log(isValid);
+        return isValid;
+      },
+
 
       initialDatesChanged: function(oldValue, newValue) {
         this.dates = [];
@@ -222,6 +234,13 @@ Element providing solution to no problem in particular.
             }
           }
         }
+
+
+        //Clear core-dropdown-overlays dimensions because data has been changed. Currently there is a bug in polymer
+        var el = this.$.buildingSelect.querySelector("::shadow core-dropdown::shadow core-dropdown-overlay");
+        el.target.style.width = null;
+        el.target.style.height = null;
+
       },
 
       loadRooms: function() {
@@ -244,6 +263,10 @@ Element providing solution to no problem in particular.
             }
           }
         }
+        //Clear core-dropdown-overlays dimensions because data has been changed. Currently there is a bug in polymer
+        var el = this.$.roomSelect.querySelector("::shadow core-dropdown::shadow core-dropdown-overlay");
+        el.target.style.width = null;
+        el.target.style.height = null;
       },
 
 
@@ -266,13 +289,6 @@ Element providing solution to no problem in particular.
       },
 
       selectedRoomChanged: function(oldValue, newValue) {
-        //this.selectedValues.room = newValue;
-        if(newValue.indexOf(':ir') !== -1)
-          this.selectedCapacity = 1;
-        else {
-          this.selectedCapacity = 5;
-        }
-
       },
 
       selectedDateChanged: function(oldValue, newValue) {

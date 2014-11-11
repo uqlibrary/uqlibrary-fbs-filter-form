@@ -49,6 +49,9 @@ paper-dropdown-menu {
     display: block;
     background-color: #eeeeee;
     color: rgba(0, 0, 0, 0.54); }
+  paper-dropdown-menu.error::shadow #control {
+    color: #f44336;
+    border-color: #f44336; }
   paper-dropdown-menu paper-item {
     padding: 0px; }
     paper-dropdown-menu paper-item:hover {
@@ -109,3 +112,6 @@ paper-checkbox::shadow #checkbox.checked {
 
 paper-toast#infoToast {
   position: absolute; }
+
+.error {
+  color: #f44336; }

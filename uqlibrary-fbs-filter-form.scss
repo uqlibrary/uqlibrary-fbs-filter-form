@@ -39,11 +39,16 @@ paper-dropdown-menu {
     #control {
       color: $inputColor;
     }
-
     core-dropdown{
       display: block;
       background-color: $dropdown-background;
       color: $textColor;
+    }
+  }
+  &.error::shadow {
+    #control {
+      color: $error-color;
+      border-color: $error-color;
     }
   }
 
@@ -171,5 +176,9 @@ paper-toast {
   &#infoToast {
     position: absolute;
   }
+}
+
+.error {
+  color: $error-color;
 }
 
