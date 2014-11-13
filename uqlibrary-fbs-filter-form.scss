@@ -7,18 +7,46 @@ $textColor: $secondary-text;
 
 :host {
   font-size: 10pt;
-
+  width: 100%;
 }
 
 .filterWrapper {
   background-color: $white;
-  max-width: 300pt;
+
 }
 
 uqlibrary-filter-group {
   padding-right: 20pt;
-  max-width: 300pt;
+
+
+  div.groupContentWrapper[horizontal] {
+    paper-dropdown-menu {
+      min-width: 150px;
+      margin-right: 20px;
+      &:last-child{
+        margin-right: 0px;
+      }
+    }
+  }
+
 }
+
+paper-dropdown-menu {
+  display: block;
+  width: 100%;
+
+  paper-dropdown {
+    paper-item {
+      &:hover {
+        background-color: $grey-A100;
+      }
+    }
+  }
+
+
+}
+
+
 
 paper-input {
   &::shadow {
@@ -36,6 +64,7 @@ paper-input {
 md-timepicker {
   &::shadow {
     #card {
+      border: 1px solid $grey-A100;
       position: absolute;
       margin-top: 0pt;
       z-index: 999;

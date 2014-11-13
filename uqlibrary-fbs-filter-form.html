@@ -38,42 +38,40 @@ Element providing solution to no problem in particular.
     <link rel="stylesheet" href="uqlibrary-fbs-filter-form.css" />
 
       <div class="filterWrapper">
-        <uqlibrary-filter-group  label="Campus" icon="communication:location-on">
+        <uqlibrary-filter-group label="Campus" icon="communication:location-on">
+            <paper-dropdown-menu id="campusSelect" label="Campus" class="{{errors.campus ? 'error' : ''}}">
+              <paper-dropdown class="dropdown">
+                <core-menu class="menu" selected="{{selectedCampus}}">
+                  <template repeat="{{campuses as item}}">
+                    <paper-item name="{{item.id}}" label="{{item.title}}"></paper-item>
+                  </template>
+                </core-menu>
+              </paper-dropdown>
+            </paper-dropdown-menu><br>
 
-          <paper-dropdown-menu id="campusSelect" label="Campus" class="{{errors.campus ? 'error' : ''}}">
-            <paper-dropdown class="dropdown">
-              <core-menu class="menu" selected="{{selectedCampus}}">
-                <template repeat="{{campuses as item}}">
-                  <paper-item name="{{item.id}}" label="{{item.title}}"></paper-item>
-                </template>
-              </core-menu>
-            </paper-dropdown>
-          </paper-dropdown-menu><br>
+            <paper-dropdown-menu id="buildingSelect" label="Building" hidden?="{{!buildings.length}}">
+              <paper-dropdown class="dropdown">
+                <core-menu class="menu" selected="{{selectedBuilding}}">
+                  <template repeat="{{building in buildings}}">
+                    <paper-item name="{{building.id}}" label="{{building.title}}"></paper-item>
+                  </template>
+                </core-menu>
+              </paper-dropdown>
+            </paper-dropdown-menu><br>
 
-          <paper-dropdown-menu id="buildingSelect" label="Building" hidden?="{{!buildings.length}}">
-            <paper-dropdown class="dropdown">
-              <core-menu class="menu" selected="{{selectedBuilding}}">
-                <template repeat="{{building in buildings}}">
-                  <paper-item name="{{building.id}}" label="{{building.title}}"></paper-item>
-                </template>
-              </core-menu>
-            </paper-dropdown>
-          </paper-dropdown-menu><br>
-
-          <paper-dropdown-menu id="roomSelect" label="Room" hidden?="{{!rooms.length}}">
-            <paper-dropdown class="dropdown">
-              <core-menu class="menu" selected="{{selectedRoom}}">
-                <template repeat="{{rooms as room}}">
-                  <paper-item name="{{room.id}}" label="{{room.title}}">
-                  </paper-item>
-                </template>
-              </core-menu>
-            </paper-dropdown>
-          </paper-dropdown-menu>
+            <paper-dropdown-menu id="roomSelect" label="Room" hidden?="{{!rooms.length}}">
+              <paper-dropdown class="dropdown">
+                <core-menu class="menu" selected="{{selectedRoom}}">
+                  <template repeat="{{rooms as room}}">
+                    <paper-item name="{{room.id}}" label="{{room.title}}">
+                    </paper-item>
+                  </template>
+                </core-menu>
+              </paper-dropdown>
+            </paper-dropdown-menu>
         </uqlibrary-filter-group>
 
         <uqlibrary-filter-group label="Time" icon="device:access-time">
-
           <paper-dropdown-menu id="dateSelect" label="Date" selected="{{selectedDate}}">
             <paper-dropdown class="dropdown">
               <core-menu class="menu">
@@ -87,12 +85,12 @@ Element providing solution to no problem in particular.
 
           <paper-input floatingLabel id="time" on-focus="{{showTimepicker}}" value="{{selectedTime}}" label="Now"></paper-input>
           <md-timepicker id="timepicker" on-time-selected="{{timeSelectedHandler}}" hidden></md-timepicker>
-
           <div class="sliderWrapper" layout horizontal justified center>
             <div>Duration</div>
             <paper-slider flex id="timePeriod" pin step="0.5" min="0.5" max="4" value="{{selectedDuration}}"></paper-slider>
             <div end-justified>{{selectedDuration}} hour(s)</div>
           </div>
+
         </uqlibrary-filter-group>
 
 
@@ -132,7 +130,7 @@ Element providing solution to no problem in particular.
 
   </template>
 
-  <script>
+  <script type="text/javascript">
 
 
     Polymer('uqlibrary-fbs-filter-form', {
@@ -147,7 +145,6 @@ Element providing solution to no problem in particular.
       created: function() {
         this.selectedValues = {};
       },
-
 
 
       campuses: [],
@@ -170,8 +167,29 @@ Element providing solution to no problem in particular.
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 
       ready: function() {
-
       },
+
+      /*initializeLayout: function() {
+        var wrappersToProceed = this.shadowRoot.getElementsByClassName("groupContentWrapper");
+        if(wrappersToProceed) {
+          for(var i = 0; i < wrappersToProceed.length; i++) {
+            var _el = wrappersToProceed[i];
+            if(_el.hasAttribute('responsiveWidth')) {
+              if(window.innerWidth < parseInt(_el.getAttribute('responsiveWidth'))) {
+                _el.removeAttribute('horizontal');
+                _el.setAttribute('vertical','');
+              }
+              else {
+                _el.removeAttribute('vertical');
+                _el.setAttribute('horizontal','');
+
+              }
+            }
+          }
+        }
+
+
+      },*/
 
 
       submitForm: function() {
@@ -251,6 +269,10 @@ Element providing solution to no problem in particular.
             }
           }
         }
+        var el = this.$.buildingSelect.querySelector("paper-dropdown::shadow #scroller");
+        el.style.width = null;
+        el.style.height = null;
+
       },
 
       loadRooms: function() {
@@ -273,6 +295,9 @@ Element providing solution to no problem in particular.
             }
           }
         }
+        var el = this.$.roomSelect.querySelector("paper-dropdown::shadow #scroller");
+        el.style.width = null;
+        el.style.height = null;
       },
 
 
@@ -341,7 +366,7 @@ Element providing solution to no problem in particular.
       },
       hideTimepicker: function() {
         this.$.timepicker.hidden = true;
-      },
+      }
     });
 
   </script>

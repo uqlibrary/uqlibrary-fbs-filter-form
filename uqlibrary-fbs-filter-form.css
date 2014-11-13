@@ -25,15 +25,25 @@
   outline: none; }
 
 :host {
-  font-size: 10pt; }
+  font-size: 10pt;
+  width: 100%; }
 
 .filterWrapper {
-  background-color: #ffffff;
-  max-width: 300pt; }
+  background-color: white; }
 
 uqlibrary-filter-group {
-  padding-right: 20pt;
-  max-width: 300pt; }
+  padding-right: 20pt; }
+  uqlibrary-filter-group div.groupContentWrapper[horizontal] paper-dropdown-menu {
+    min-width: 150px;
+    margin-right: 20px; }
+    uqlibrary-filter-group div.groupContentWrapper[horizontal] paper-dropdown-menu:last-child {
+      margin-right: 0px; }
+
+paper-dropdown-menu {
+  display: block;
+  width: 100%; }
+  paper-dropdown-menu paper-dropdown paper-item:hover {
+    background-color: whitesmoke; }
 
 paper-input::shadow input {
   color: rgba(0, 0, 0, 0.54); }
@@ -42,6 +52,7 @@ paper-input#time {
   width: 100%; }
 
 md-timepicker::shadow #card {
+  border: 1px solid whitesmoke;
   position: absolute;
   margin-top: 0pt;
   z-index: 999;
@@ -89,13 +100,11 @@ paper-checkbox::shadow #checkbox.checked {
   padding: 10pt 20pt 40pt 20pt;
   position: relative; }
   .buttonWrapper paper-fab#applyButton {
-    background-color: #4CAF50;
-    color: #ffffff; }
+    background-color: #4caf50;
+    color: white; }
 
 paper-toast#infoToast {
   position: absolute; }
 
 .error {
-  color: #F44336; }
-
-/*# sourceMappingURL=uqlibrary-fbs-filter-form.css.map */
+  color: #f44336; }
