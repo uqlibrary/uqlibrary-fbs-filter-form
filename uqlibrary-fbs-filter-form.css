@@ -73,15 +73,17 @@ md-timepicker::shadow #keypad {
   md-timepicker::shadow #keypad .digit {
     flex-basis: 56.7px; }
 
-paper-slider::shadow #sliderBar::shadow #activeProgress {
-  background-color: #009688; }
-paper-slider::shadow #sliderKnobInner {
-  background-color: #009688; }
-  paper-slider::shadow #sliderKnobInner::before {
-    background-color: #009688;
-    display: block !important; }
-paper-slider#timePeriod {
-  width: 50%; }
+paper-slider {
+  width: 100%; }
+  paper-slider::shadow #sliderBar::shadow #activeProgress {
+    background-color: #009688; }
+  paper-slider::shadow #sliderKnobInner {
+    background-color: #009688; }
+    paper-slider::shadow #sliderKnobInner::before {
+      background-color: #009688;
+      display: block !important; }
+  paper-slider#timePeriod {
+    width: 50%; }
 
 .sliderWrapper {
   color: rgba(0, 0, 0, 0.54);

@@ -16,6 +16,7 @@
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../core-icon/core-icon.html">
 <link rel="import" href="../core-menu/core-menu.html">
+<link rel="import" href="../core-label/core-label.html">
 <link rel="import" href="../paper-dropdown/paper-dropdown.html">
 <link rel="import" href="uqlibrary-filter-group.html">
 
@@ -103,19 +104,19 @@ Element providing solution to no problem in particular.
 
         <uqlibrary-filter-group label="Equipment" icon="settings">
           <div class="equipment-item" layout horizontal>
-            <div flex>
+            <core-label flex for="#equipment_pc">
               <core-icon icon="hardware:desktop-windows"></core-icon>
-              <label>PC</label>
-            </div>
-            <paper-checkbox id="equipment.pc" checked="{{selectedEquipment.pc}}"></paper-checkbox>
+              PC
+            </core-label>
+            <paper-checkbox id="equipment_pc" checked="{{selectedEquipment.pc}}"></paper-checkbox>
           </div>
 
           <div class="equipment-item" layout horizontal>
-            <div flex>
+            <core-label flex for="#equipment_projector">
               <core-icon icon="av:videocam"></core-icon>
-              <label>Projector</label>
-            </div>
-            <paper-checkbox id="equipment.pc" checked="{{selectedEquipment.projector}}"></paper-checkbox>
+              Projector
+            </core-label>
+            <paper-checkbox id="equipment_projector" checked="{{selectedEquipment.projector}}"></paper-checkbox>
           </div>
         </uqlibrary-filter-group>
 
@@ -247,8 +248,8 @@ Element providing solution to no problem in particular.
         for(var i = 0; i < this.formData.facilities.length; i++) {
           var _campus = this.formData.facilities[i];
           this.campuses.push(
-            { id: _campus.id,
-              title: _campus.title
+            { "id": _campus.id,
+              "title": _campus.title
             }
           );
         }
@@ -262,8 +263,8 @@ Element providing solution to no problem in particular.
             for(var j = 0; j < _campus.buildings.length; j++) {
               var _building = _campus.buildings[j];
               this.buildings.push(
-                { id: _campus.id + ":" + _building.id,
-                  title: _building.title
+                { "id": _campus.id + ":" + _building.id,
+                  "title": _building.title
                 }
               );
             }
@@ -286,8 +287,8 @@ Element providing solution to no problem in particular.
                 for(var k = 0; k < _building.rooms.length; k++) {
                   var _room = _building.rooms[k];
                   this.rooms.push(
-                    { id: _campus.id + ":" + _building.id + ":" + _room.id,
-                      title: _room.title
+                    { "id": _campus.id + ":" + _building.id + ":" + _room.id,
+                      "title": _room.title
                     }
                   );
                 }
@@ -305,7 +306,6 @@ Element providing solution to no problem in particular.
         if(oldValue != '') {
           this.selectedBuilding = '';
         }
-
         //this.selectedValues.campus = newValue;
         this.loadBuildings();
       },
@@ -327,14 +327,16 @@ Element providing solution to no problem in particular.
       },
 
       selectedValuesChanged: function(oldValue, newValue) {
-        this.selectedCampus = this.selectedValues.campus;
-        this.selectedBuilding = this.selectedValues.building;
-        this.selectedRoom = this.selectedValues.room;
-        this.selectedDate = this.selectedValues.date;
-        this.selectedTime = this.selectedValues.time;
-        this.selectedDuration = this.selectedValues.duration;
-        this.selectedCapacity = this.selectedValues.capacity;
-        this.selectedEquipment = this.selectedValues.equipment;
+        if(this.selectedValues) {
+          this.selectedCampus = this.selectedValues.campus;
+          this.selectedBuilding = this.selectedValues.building;
+          this.selectedRoom = this.selectedValues.room;
+          this.selectedDate = this.selectedValues.date;
+          this.selectedTime = this.selectedValues.time;
+          this.selectedDuration = this.selectedValues.duration;
+          this.selectedCapacity = this.selectedValues.capacity;
+          this.selectedEquipment = this.selectedValues.equipment;
+        }
       },
 
       getSelectedValues: function() {
