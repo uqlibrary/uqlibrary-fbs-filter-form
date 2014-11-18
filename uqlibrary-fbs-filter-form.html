@@ -18,6 +18,7 @@
 <link rel="import" href="../core-menu/core-menu.html">
 <link rel="import" href="../core-label/core-label.html">
 <link rel="import" href="../paper-dropdown/paper-dropdown.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
 <link rel="import" href="uqlibrary-filter-group.html">
 
 <!--
@@ -37,8 +38,8 @@ Element providing solution to no problem in particular.
   <template>
 
     <link rel="stylesheet" href="uqlibrary-fbs-filter-form.css" />
-
-      <div class="filterWrapper">
+      <paper-shadow>
+        <div class="filterWrapper">
         <uqlibrary-filter-group label="Campus" icon="communication:location-on">
             <paper-dropdown-menu id="campusSelect" label="Campus" class="{{errors.campus ? 'error' : ''}}">
               <paper-dropdown class="dropdown">
@@ -126,6 +127,7 @@ Element providing solution to no problem in particular.
         </div>
 
       </div>
+      </paper-shadow>
 
     <content></content>
 
