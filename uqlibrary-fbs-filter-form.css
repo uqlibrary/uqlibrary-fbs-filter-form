@@ -45,11 +45,13 @@ paper-dropdown-menu {
   paper-dropdown-menu paper-dropdown paper-item:hover {
     background-color: whitesmoke; }
 
-paper-input::shadow input {
-  color: rgba(0, 0, 0, 0.54); }
-paper-input#time {
-  display: block;
-  width: 100%; }
+paper-input {
+  display: block; }
+  paper-input::shadow input {
+    color: rgba(0, 0, 0, 0.54); }
+  paper-input#time {
+    display: block;
+    width: 100%; }
 
 md-timepicker::shadow #card {
   border: 1px solid whitesmoke;
@@ -86,7 +88,7 @@ paper-slider {
     width: 50%; }
 
 .sliderWrapper {
-  color: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.87);
   margin-top: 20pt; }
 
 paper-checkbox::shadow #checkbox.checked {
@@ -106,7 +108,9 @@ paper-checkbox::shadow #checkbox.checked {
     color: white; }
 
 paper-toast#infoToast {
-  position: absolute; }
+  position: fixed; }
 
 .error {
-  color: #f44336; }
+  border-bottom: 1px solid #f44336; }
+  .error::shadow #label {
+    color: #f44336; }

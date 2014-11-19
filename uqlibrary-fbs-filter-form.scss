@@ -49,6 +49,7 @@ paper-dropdown-menu {
 
 
 paper-input {
+  display: block;
   &::shadow {
     input {
       color: $inputColor;
@@ -134,7 +135,7 @@ paper-slider {
 }
 
 .sliderWrapper {
-  color: $textColor;
+  color: $text;
   margin-top: 20pt;
 }
 
@@ -169,11 +170,16 @@ paper-checkbox {
 
 paper-toast {
   &#infoToast {
-    position: absolute;
+    position: fixed;
   }
 }
 
 .error {
-  color: $error-color;
+  border-bottom: 1px solid $error-color;
+  &::shadow {
+    #label {
+      color: $error-color;
+    }
+  }
 }
 
