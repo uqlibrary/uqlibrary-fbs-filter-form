@@ -6,20 +6,25 @@
 <link rel="import" href="../core-icons/communication-icons.html">
 <link rel="import" href="../core-icons/hardware-icons.html">
 <link rel="import" href="../core-icons/av-icons.html">
+<link rel="import" href="../core-icon/core-icon.html">
+<link rel="import" href="../core-menu/core-menu.html">
+<link rel="import" href="../core-label/core-label.html">
+<link rel="import" href="../core-overlay/core-overlay.html">
+
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../md-timepicker/md-timepicker.html">
 <link rel="import" href="../paper-slider/paper-slider.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../paper-fab/paper-fab.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
-<link rel="import" href="../core-icon/core-icon.html">
-<link rel="import" href="../core-menu/core-menu.html">
-<link rel="import" href="../core-label/core-label.html">
 <link rel="import" href="../paper-dropdown/paper-dropdown.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
+
+<link rel="import" href="../md-timepicker/md-timepicker.html">
 <link rel="import" href="uqlibrary-filter-group.html">
+
+<link rel="import" href="../core-transition/core-transition.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -84,7 +89,10 @@ Element providing solution to no problem in particular.
           </paper-dropdown-menu>
 
           <paper-input floatingLabel id="time" on-focus="{{showTimepicker}}" value="{{selectedTime}}" label="Now"></paper-input>
-          <md-timepicker id="timepicker" on-time-selected="{{timeSelectedHandler}}" hidden></md-timepicker>
+          <core-overlay id="timepickerDialog" backdrop transition="core-transition-center" autoCloseDisabled>
+
+            <md-timepicker id="timepicker" on-time-selected="{{timeSelectedHandler}}"></md-timepicker>
+          </core-overlay>
           <div class="sliderWrapper" layout horizontal justified center>
             <div>Duration</div>
             <paper-slider flex id="timePeriod" pin step="0.5" min="0.5" max="4" immediateValue="{{durationImmidiate}}" value="{{selectedDuration}}"></paper-slider>
@@ -107,7 +115,7 @@ Element providing solution to no problem in particular.
               <core-icon icon="hardware:desktop-windows"></core-icon>
               PC
             </core-label>
-            <paper-checkbox id="equipment_pc" checked="{{selectedEquipment.pc}}"></paper-checkbox>
+            <paper-checkbox id="equipment_pc" on-core-change="{{checkboxToggle}}" checked?="{{selectedEquipment.pc}}"></paper-checkbox>
           </div>
 
           <div class="equipment-item" layout horizontal>
@@ -115,7 +123,8 @@ Element providing solution to no problem in particular.
               <core-icon icon="av:videocam"></core-icon>
               Projector
             </core-label>
-            <paper-checkbox id="equipment_projector" checked="{{selectedEquipment.projector}}"></paper-checkbox>
+            <paper-checkbox id="equipment_projector" on-core-change="{{checkboxToggle}}" checked?="{{selectedEquipment.projector}}"></paper-checkbox>
+
           </div>
         </uqlibrary-filter-group>
 
@@ -150,10 +159,6 @@ Element providing solution to no problem in particular.
         'formData.dates': 'initialDatesChanged',
       },
 
-      created: function() {
-
-      },
-
       campuses: [],
       buildings:[],
       rooms:[],
@@ -172,6 +177,10 @@ Element providing solution to no problem in particular.
       refreshList: '',
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+
+      created: function() {
+
+      },
 
       ready: function() {
         this.addEventListener('submit-form', this.submitForm);
@@ -336,7 +345,7 @@ Element providing solution to no problem in particular.
       timeSelectedHandler: function(e, value) {
         this.selectedTime = value.time;
         this.$.time.label = 'From';
-        this.hideTimepicker();
+        this.$.timepickerDialog.toggle();
       },
 
       showTimepicker: function() {
@@ -345,12 +354,15 @@ Element providing solution to no problem in particular.
           this.$.timepicker.minutes = this.selectedTime.substring(this.selectedTime.indexOf(":")+1);
         }
         this.$.timepicker.selectHours();
-        this.$.timepicker.hidden = false;
-
+        this.$.timepickerDialog.toggle();
       },
-      hideTimepicker: function() {
-        this.$.timepicker.hidden = true;
+
+      checkboxToggle: function(e, data, sender) {
+        var _id = sender.getAttribute('id').replace('equipment_','');
+        this.selectedEquipment[_id] = sender.checked;
+
       }
+
     });
 
   </script>

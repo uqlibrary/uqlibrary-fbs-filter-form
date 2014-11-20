@@ -42,8 +42,6 @@ paper-dropdown-menu {
       }
     }
   }
-
-
 }
 
 
@@ -66,33 +64,33 @@ md-timepicker {
   &::shadow {
     #card {
       border: 1px solid $grey-A100;
-      position: absolute;
       margin-top: 0pt;
-      z-index: 999;
-
+      margin-bottom: 0pt;
       height: 400px * $timepickerRatio;
       width: 250px * $timepickerRatio;
-    }
-    #display {
-      background-color: $mainColor !important;
-      height: 120px * $timepickerRatio;
-      padding: 24px * $timepickerRatio;
-      color: white;
-      font-size: 46px * $timepickerRatio;
-      .digit{
-        opacity: 0.7;
-        &[active] {
-          opacity: 1;
+
+      #display {
+        background-color: $mainColor !important;
+        height: 120px * $timepickerRatio;
+        padding: 24px * $timepickerRatio;
+        color: $white;
+        font-size: 46px * $timepickerRatio;
+        .digit{
+          opacity: 0.7;
+          &[active] {
+            opacity: 1;
+          }
         }
       }
-    }
-    #keypad {
-      font-size: 42px * $timepickerRatio;
 
-      .digit {
-        flex-basis: 63px * $timepickerRatio;
+      #keypad {
+        font-size: 42px * $timepickerRatio;
+
+        .digit {
+          flex-basis: 63px * $timepickerRatio;
+        }
+
       }
-
     }
 
 
@@ -182,4 +180,16 @@ paper-toast {
     }
   }
 }
+
+/*paper-dialog {
+
+  &#timepickerDialog::shadow {
+    #actions {
+      display: none;
+    }
+    #main {
+      padding: 0px;
+    }
+  }
+}*/
 
