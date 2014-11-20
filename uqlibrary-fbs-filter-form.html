@@ -78,11 +78,11 @@ Element providing solution to no problem in particular.
         </uqlibrary-filter-group>
 
         <uqlibrary-filter-group label="Time" icon="device:access-time">
-          <paper-dropdown-menu id="dateSelect" label="Date" selected="{{selectedDate}}">
+          <paper-dropdown-menu id="dateSelect" label="Date">
             <paper-dropdown class="dropdown">
-              <core-menu class="menu">
+              <core-menu class="menu" valueattr="value" selected="{{selectedDate}}">
                 <template repeat="{{dates as date}}">
-                  <paper-item name="{{date.value}}" label="{{date.text}}">{{date.text}}</paper-item>
+                  <paper-item value="{{date.value}}" label="{{date.text}}">{{date.text}}</paper-item>
                 </template>
               </core-menu>
             </paper-dropdown>
@@ -151,7 +151,6 @@ Element providing solution to no problem in particular.
           observe: 'selectedValuesChanged',
           value: {}
         }
-
       },
 
       observe: {
@@ -203,9 +202,11 @@ Element providing solution to no problem in particular.
         this.buildings = [];
         this.rooms = [];
 
-        this.loadCampuses();
-        this.loadBuildings();
-        this.loadRooms();
+        if(this.formData.facilities) {
+          this.loadCampuses();
+          this.loadBuildings();
+          this.loadRooms();
+        }
 
       },
 
@@ -229,7 +230,7 @@ Element providing solution to no problem in particular.
 
           _date.date = new Date(_date.date);
           _date.day = _date.date.getDate();
-          _date.value = _date.day+'/'+(_date.date.getMonth() + 1)+'/'+_date.date.getFullYear();
+          _date.value = _date.date; //_date.day+'/'+(_date.date.getMonth() + 1)+'/'+_date.date.getFullYear();
           _date.text = ( _date.day == new Date().getDate() ? 'Today' :  this.dayNames[_date.date.getDay()] + ', ' + this.months[_date.date.getMonth()] + ' ' + _date.day);
 
           this.dates.push(_date);
@@ -301,17 +302,19 @@ Element providing solution to no problem in particular.
         if(oldValue != '') {
           this.selectedBuilding = '';
         }
-        //this.selectedValues.campus = newValue;
-        this.loadBuildings();
+        if (newValue) {
+          this.loadBuildings();
+        }
       },
 
       selectedBuildingChanged: function(oldValue, newValue) {
         // If user selects a value. Not acceptable to initial form state
-        if(oldValue != '') {
+        if (oldValue != '') {
           this.selectedRoom = null;
         }
-        //this.selectedValues.building = newValue;
-        this.loadRooms();
+        if (newValue) {
+          this.loadRooms();
+        }
       },
 
       selectedValuesChanged: function(oldValue, newValue) {
@@ -336,6 +339,21 @@ Element providing solution to no problem in particular.
         this.selectedValues.room = this.selectedRoom;
         this.selectedValues.date = this.selectedDate;
         this.selectedValues.time = this.selectedTime;
+
+        if(this.selectedDate ){
+          this.selectedValues.searchDate = new Date(this.selectedDate)
+        } else {
+          this.selectedValues.searchDate = new Date();
+        }
+        if(this.selectedTime){
+          this.selectedValues.searchDate.setHours(this.selectedTime.substring(0,this.selectedTime.indexOf(":")));
+          this.selectedValues.searchDate.setMinutes(this.selectedTime.substring(this.selectedTime.indexOf(":")+1));
+        } else {
+          this.selectedValues.searchDate.setHours(new Date().getHours());
+          this.selectedValues.searchDate.setMinutes(new Date().getMinutes());
+        }
+        this.selectedValues.searchDate.setSeconds(0);
+
         this.selectedValues.duration = this.selectedDuration;
         this.selectedValues.capacity = this.selectedCapacity;
         this.selectedValues.equipment = this.selectedEquipment;
