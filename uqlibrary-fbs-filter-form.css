@@ -72,7 +72,8 @@ md-timepicker::shadow #card {
   md-timepicker::shadow #card #keypad {
     font-size: 37.8px; }
     md-timepicker::shadow #card #keypad .digit {
-      flex-basis: 56.7px; }
+      flex-basis: 56.7px;
+      -webkit-flex-basis: 56.7px; }
 
 paper-slider {
   width: 100%; }

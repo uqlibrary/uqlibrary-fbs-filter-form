@@ -42,7 +42,7 @@ Element providing solution to no problem in particular.
 
   <template>
 
-    <link rel="stylesheet" href="uqlibrary-fbs-filter-form.css" />
+    <link rel="stylesheet" href="uqlibrary-fbs-filter-form.css" shim-shadowdom />
       <paper-shadow>
         <div class="filterWrapper">
         <uqlibrary-filter-group label="Campus" icon="communication:location-on">
@@ -54,7 +54,7 @@ Element providing solution to no problem in particular.
                   </template>
                 </core-menu>
               </paper-dropdown>
-            </paper-dropdown-menu><br>
+            </paper-dropdown-menu>
 
             <paper-dropdown-menu id="buildingSelect" label="Building" hidden?="{{!buildings.length}}">
               <paper-dropdown class="dropdown">
@@ -64,7 +64,7 @@ Element providing solution to no problem in particular.
                   </template>
                 </core-menu>
               </paper-dropdown>
-            </paper-dropdown-menu><br>
+            </paper-dropdown-menu>
 
             <paper-dropdown-menu id="roomSelect" label="Room" hidden?="{{!rooms.length}}">
               <paper-dropdown class="dropdown">
@@ -266,9 +266,11 @@ Element providing solution to no problem in particular.
             }
           }
         }
-        var el = this.$.buildingSelect.querySelector("paper-dropdown::shadow #scroller");
-        el.style.width = null;
-        el.style.height = null;
+        var el = document.querySelector("paper-dropdown-menu#buildingSelect paper-dropdown /deep/ #scroller");
+        if (el) {
+          el.style.width = null;
+          el.style.height = null;
+        }
 
       },
 
@@ -292,9 +294,12 @@ Element providing solution to no problem in particular.
             }
           }
         }
-        var el = this.$.roomSelect.querySelector("paper-dropdown::shadow #scroller");
-        el.style.width = null;
-        el.style.height = null;
+
+        var el = document.querySelector("paper-dropdown-menu#roomSelect paper-dropdown /deep/ #scroller");
+        if (el) {
+          el.style.width = null;
+          el.style.height = null;
+        }
       },
 
 
@@ -357,6 +362,8 @@ Element providing solution to no problem in particular.
         this.selectedValues.duration = this.selectedDuration;
         this.selectedValues.capacity = this.selectedCapacity;
         this.selectedValues.equipment = this.selectedEquipment;
+
+
       },
 
 
