@@ -77,8 +77,10 @@ md-timepicker::shadow #card {
 
 paper-slider {
   width: 100%; }
-  paper-slider::shadow #sliderBar::shadow #activeProgress {
-    background-color: #009688; }
+  paper-slider::shadow #sliderBar {
+    box-sizing: content-box; }
+    paper-slider::shadow #sliderBar::shadow #activeProgress {
+      background-color: #009688; }
   paper-slider::shadow #sliderKnobInner {
     background-color: #009688; }
     paper-slider::shadow #sliderKnobInner::before {

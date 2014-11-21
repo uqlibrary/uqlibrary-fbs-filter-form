@@ -103,6 +103,7 @@ paper-slider {
   width: 100%;
   &::shadow {
     #sliderBar {
+      box-sizing: content-box;
       &::shadow {
         #activeProgress {
           background-color: $mainColor;
