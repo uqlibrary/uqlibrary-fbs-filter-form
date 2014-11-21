@@ -13,7 +13,7 @@
 
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../core-input/core-input.html">
 <link rel="import" href="../paper-slider/paper-slider.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../paper-fab/paper-fab.html">
@@ -44,7 +44,7 @@ Element providing solution to no problem in particular.
 
     <link rel="stylesheet" href="uqlibrary-fbs-filter-form.css" shim-shadowdom />
       <paper-shadow>
-        <div class="filterWrapper">
+        <div id="filterWrapper" class="filterWrapper">
         <uqlibrary-filter-group label="Campus" icon="communication:location-on">
             <paper-dropdown-menu id="campusSelect" label="{{errors.campus ? errors.campus : 'Campus'}}" class="{{errors.campus ? 'error' : ''}}">
               <paper-dropdown class="dropdown">
@@ -88,9 +88,10 @@ Element providing solution to no problem in particular.
             </paper-dropdown>
           </paper-dropdown-menu>
 
-          <paper-input floatingLabel id="time" on-focus="{{showTimepicker}}" value="{{selectedTime}}" label="Now"></paper-input>
-          <core-overlay id="timepickerDialog" backdrop transition="core-transition-center" autoCloseDisabled>
-
+          <paper-input-decorator id="decorator" on-down="{{showTimepicker}}" label="Now" floatingLabel>
+            <input id="time" readonly  value="{{selectedTime}}">
+          </paper-input-decorator>
+          <core-overlay id="timepickerDialog"  transition="core-transition-center" autoCloseDisabled>
             <md-timepicker id="timepicker" on-time-selected="{{timeSelectedHandler}}"></md-timepicker>
           </core-overlay>
           <div class="sliderWrapper" layout horizontal justified center>
@@ -369,7 +370,8 @@ Element providing solution to no problem in particular.
 
       timeSelectedHandler: function(e, value) {
         this.selectedTime = value.time;
-        this.$.time.label = 'From';
+        this.$.decorator.label = 'From';
+        this.$.decorator.updateLabelVisibility(this.selectedTime);
         this.$.timepickerDialog.toggle();
       },
 

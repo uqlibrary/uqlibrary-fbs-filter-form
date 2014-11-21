@@ -115,14 +115,7 @@ paper-toast#infoToast {
   .error::shadow #label {
     color: #f44336; }
 
-/*paper-dialog {
-
-  &#timepickerDialog::shadow {
-    #actions {
-      display: none;
-    }
-    #main {
-      padding: 0px;
-    }
-  }
-}*/
+core-overlay#timepickerDialog::shadow #actions {
+  display: none; }
+core-overlay#timepickerDialog::shadow #main {
+  padding: 0px; }
